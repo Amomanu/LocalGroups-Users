@@ -1,10 +1,12 @@
-$null>C:\temp\localgroupsusers.txt
+$hostname=hostname
+$path = "C:\temp\"+$hostname + ".txt"
+$null>$path
 net localgroup|ForEach-Object -Process {echo "$_"
                                         $temp=$_
                                         $temp=$temp.TrimStart('*')
                                         try{
                                         $users = net localgroup $temp 
-                                        Add-Content -Value $users -Path C:\temp\localgroupsusers.txt
+                                        Add-Content -Value $users -Path $path
                                         }
                                         catch{}
                                         Clear-Variable temp
