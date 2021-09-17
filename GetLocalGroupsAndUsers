@@ -1,0 +1,11 @@
+$null>C:\temp\localgroupsusers.txt
+net localgroup|ForEach-Object -Process {echo "$_"
+                                        $temp=$_
+                                        $temp=$temp.TrimStart('*')
+                                        try{
+                                        $users = net localgroup $temp 
+                                        Add-Content -Value $users -Path C:\temp\localgroupsusers.txt
+                                        }
+                                        catch{}
+                                        Clear-Variable temp
+                                        Clear-Variable users}
